@@ -28,6 +28,27 @@ int binary_search(int *array,int *l,int *r,int *x)
 	return -1;
 }
 
+int binary_search_recursive(int *array,int *l,int *r,int *x)
+{
+	if(*r>=*l)
+	{
+		int mid = *l + (*r-*l) * 0.5; int tmp;
+
+		if(array[mid]==*x)
+			return mid;
+		else if(array[mid]<*x){
+			tmp=mid-1;
+			return binary_search_recursive(array,&tmp,r,x);
+		}
+		else{
+			tmp=mid+1;	//extra operations here
+			return binary_search_recursive(array,l,&tmp,x);
+		}
+	}
+
+	return -1;
+}
+
 int main()
 {
 	int array[] = {1,3,5,7,9,11};
@@ -39,7 +60,11 @@ int main()
 
 	//test case
 	(result==-1) ? printf("Element does not exist in array.\n") : printf("Element exists at index %d.\n",result);
-	
+
+	//test case 2
+	result = binary_search_recursive(array,&l,&r,&x);
+	(result==-1) ? printf("Element does not exist in array.\n") : printf("Element exists in array index=%d\n",result);
+		
 	return 0;
 }
 
